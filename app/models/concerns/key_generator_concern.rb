@@ -9,10 +9,12 @@ module KeyGeneratorConcern extend ActiveSupport::Concern
     key
   end
 
-  def batch_generate_key_value(number_of_keys,batch_size)
+  def batch_generate_key_value(number_of_keys,key_size)
+    keys = []
     number_of_keys.times do
-      generate_key_value(batch_size)
+      keys += [generate_key_value(key_size)]
     end
+    keys
   end
 
   def get_key
