@@ -5,7 +5,7 @@ class KeyToken
   include Mongoid::Timestamps
 
   field :key_value,  type: String
-  field :is_used, type: Boolean
+  field :is_used, type: Boolean, default: false
 
   validates :key_value, presence: true, uniqueness: true
 

@@ -3,7 +3,7 @@ require 'securerandom'
 module KeyGeneratorConcern extend ActiveSupport::Concern
   def generate_key_value(key_size)
     key = KeyToken.new
-    until KeyToken.save
+    until key.save
       key.key_value = SecureRandom.alphanumeric(key_size)
     end
     key
