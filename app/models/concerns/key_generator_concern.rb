@@ -2,16 +2,17 @@
 require 'securerandom'
 module KeyGeneratorConcern extend ActiveSupport::Concern
   def generate_key_value(key_size)
-    key = nil
-    while KeyToken.exists?(key_value: key&.key_value)
-      key = SecureRandom.alphanumeric(key_size)
-      KeyToken.create!(key)
+    key = KeyToken.new
+    until KeyToken.save
+      key.key_value = SecureRandom.alphanumeric(key_size)
     end
     key
   end
 
   def batch_generate_key_value(number_of_keys,batch_size)
-    generate_key_value(batch_size)
+    number_of_keys.times do
+      generate_key_value(batch_size)
+    end
   end
 
   def get_key
